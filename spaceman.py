@@ -107,9 +107,8 @@ def spaceman(secret_word):
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
     print('___________________________________________________________________')
-    letters_guessed = []
+    # letters_guessed = []
 
-    play_again = 'yes'
     guesses = 0
     is_game_over = False
     is_game_won = True
@@ -129,6 +128,8 @@ def spaceman(secret_word):
 
         #TODO: check if the game has been won or lost
         if is_word_guessed(secret_word, letters_guessed) or guesses >= len(secret_word):
+            
+            
             is_game_over = True
 
         print('\n')
@@ -140,11 +141,41 @@ def spaceman(secret_word):
         print('You won!')
     else: 
         print('You suck!')
-
     
+    letters_guessed.clear()    
+    guesses = 0
+    
+
+
+def end_game(secret_word, letters_guessed):
+    is_game_over = False
+
+    while not is_game_over:
+        is_game_won = True
+
+        if not is_word_guessed(secret_word, letters_guessed):
+            is_game_won = False
+
+        if is_game_won:
+            play_again = input('Play again? Enter yes or no > ')
+        else: 
+            play_again = input('Play again? Enter yes or no > ')
+
+        if 'yes' in play_again:
+            is_game_over = False
+            print(is_game_over)
+        elif 'no' in play_again:
+            is_game_over = True
+
+        secret_word = load_word()
+        spaceman(secret_word)
 
 #These function calls that will start the game
 print('Welcome to Spaceman!')
 
+letters_guessed = []
 secret_word = load_word()
 spaceman(secret_word)
+
+is_game_won = True
+end_game(secret_word, letters_guessed)
