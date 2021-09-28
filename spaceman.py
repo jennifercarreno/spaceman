@@ -16,6 +16,7 @@ def load_word():
     secret_word = random.choice(words_list)
     return secret_word
 
+
 def is_word_guessed(secret_word, letters_guessed):
     '''
     A function that checks if all the letters of the secret word have been guessed.
@@ -64,8 +65,6 @@ def get_guessed_word(secret_word, letters_guessed):
         print(letter, end=' ')
  
     
-
-
 def is_guess_in_word(guess, secret_word):
     '''
     A function to check if the guessed letter is in the secret word
@@ -87,9 +86,7 @@ def is_guess_in_word(guess, secret_word):
         return False
 
 
-
-
-def spaceman(secret_word):
+def spaceman(secret_word, is_game_over):
     '''
     A function that controls the game of spaceman. Will start spaceman in the command line.
 
@@ -98,19 +95,16 @@ def spaceman(secret_word):
 
     '''
 
-
-    print(secret_word)
-
     #TODO: show the player information about the game according to the project spec
+    print('___________________________________________________________________ \n')
+
     print(f'The secret_word contans: {len(secret_word)} letters')
     print(f'You have {len(secret_word)} incorrect guesses, please enter one letter per round')
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
     print('___________________________________________________________________')
-    # letters_guessed = []
 
     guesses = 0
-    is_game_over = False
     is_game_won = True
     
 
@@ -128,8 +122,6 @@ def spaceman(secret_word):
 
         #TODO: check if the game has been won or lost
         if is_word_guessed(secret_word, letters_guessed) or guesses >= len(secret_word):
-            
-            
             is_game_over = True
 
         print('\n')
@@ -163,19 +155,20 @@ def end_game(secret_word, letters_guessed):
 
         if 'yes' in play_again:
             is_game_over = False
-            print(is_game_over)
         elif 'no' in play_again:
             is_game_over = True
+            return
 
         secret_word = load_word()
-        spaceman(secret_word)
+        spaceman(secret_word, is_game_over)
 
 #These function calls that will start the game
 print('Welcome to Spaceman!')
 
 letters_guessed = []
 secret_word = load_word()
-spaceman(secret_word)
+is_game_over = False
+spaceman(secret_word, is_game_over)
 
 is_game_won = True
 end_game(secret_word, letters_guessed)
