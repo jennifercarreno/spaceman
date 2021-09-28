@@ -109,6 +109,7 @@ def spaceman(secret_word):
 
     guesses = 0
     is_game_over = False
+    is_game_won = True
 
     while not is_game_over:
         guesses += 1
@@ -124,6 +125,14 @@ def spaceman(secret_word):
         #TODO: check if the game has been won or lost
         if is_word_guessed(secret_word, letters_guessed) or guesses >= 7:
             is_game_over = True
+    
+    if not is_word_guessed(secret_word, letters_guessed):
+        is_game_won = False
+
+    if is_game_won:
+        print('You won!')
+    else: 
+        print('You suck!')
 
 #These function calls that will start the game
 print('Welcome to Spaceman!')
