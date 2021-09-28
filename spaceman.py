@@ -80,8 +80,10 @@ def is_guess_in_word(guess, secret_word):
     '''
     #TODO: check if the letter guess is in the secret word
     if guess in secret_word:
+        print('Your guess appears in the word!')
         return True
     else:
+        print('Sorry your guess was not in the word, try again')
         return False
 
 
@@ -101,15 +103,17 @@ def spaceman(secret_word):
 
     #TODO: show the player information about the game according to the project spec
     print(f'The secret_word contans: {len(secret_word)} letters')
-    print('You have 7 incorrect guesses, please enter one letter per round')
+    print(f'You have {len(secret_word)} incorrect guesses, please enter one letter per round')
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
     print('___________________________________________________________________')
     letters_guessed = []
 
+    play_again = 'yes'
     guesses = 0
     is_game_over = False
     is_game_won = True
+    
 
     while not is_game_over:
         guesses += 1
@@ -118,14 +122,17 @@ def spaceman(secret_word):
 
         #TODO: Check if the guessed letter is in the secret or not and give the player feedback
         is_guess_in_word(user_guess, secret_word)
+        print(f'You have {len(secret_word) - guesses} guesses left \n')
 
         #TODO: show the guessed word so far
         get_guessed_word(secret_word, letters_guessed)
 
         #TODO: check if the game has been won or lost
-        if is_word_guessed(secret_word, letters_guessed) or guesses >= 7:
+        if is_word_guessed(secret_word, letters_guessed) or guesses >= len(secret_word):
             is_game_over = True
-    
+
+        print('\n')
+
     if not is_word_guessed(secret_word, letters_guessed):
         is_game_won = False
 
@@ -134,9 +141,10 @@ def spaceman(secret_word):
     else: 
         print('You suck!')
 
+    
+
 #These function calls that will start the game
 print('Welcome to Spaceman!')
-
 
 secret_word = load_word()
 spaceman(secret_word)
